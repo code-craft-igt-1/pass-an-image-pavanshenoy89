@@ -8,15 +8,15 @@ ImageBrightener::ImageBrightener(Image& inputImage) : m_inputImage(inputImage) {
 }
 
 void ImageBrightener::BrightenWholeImage() {
-	unsigned int attenuatedPixelCount = 0;
-	for (unsigned int x = 0; x < m_inputImage.GetRows(); x++) {
-		for (unsigned int y = 0; y < m_inputImage.GetColumns(); y++) {
+	uint32_t attenuatedPixelCount = 0;
+	for (uint32_t x = 0; x < m_inputImage.GetRows(); x++) {
+		for (uint32_t y = 0; y < m_inputImage.GetColumns(); y++) {
 			BrightenPixel(x, y);
 		}
 	}
 }
 
-void ImageBrightener::BrightenPixel(unsigned int x, unsigned int y) {
+void ImageBrightener::BrightenPixel(uint32_t x, uint32_t y) {
 	int pixelIndex = x * m_inputImage.GetColumns() + y;
 	if (m_inputImage.GetPixelValue(pixelIndex) > (MAX_PIXEL_VALUE - BRIGHTENING_VALUE)) {
 		m_inputImage.SetPixelValue(pixelIndex ,MAX_PIXEL_VALUE);
@@ -31,7 +31,7 @@ Image ImageBrightener::GetImage() {
 	return m_inputImage;
 }
 
-unsigned int ImageBrightener::GetAttenuatedPixelCount()
+uint32_t ImageBrightener::GetAttenuatedPixelCount()
 {
 	return m_attenuatedPixelCount;
 }

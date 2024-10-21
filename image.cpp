@@ -2,7 +2,7 @@
 #include <cstring>
 #include <memory>
 
-Image::Image(unsigned int rows, unsigned int columns)
+Image::Image(uint32_t rows, uint32_t columns)
 {
     m_pixels = std::make_unique<uint8_t[]>(rows * columns);
     m_rows = rows;
@@ -13,7 +13,7 @@ Image::Image(const Image& image)
 {
     m_rows = image.m_rows;
     m_columns = image.m_columns;
-    int size = m_rows * m_columns;
+    uint32_t size = m_rows * m_columns;
     m_pixels = std::make_unique<uint8_t[]>(size);
     std::memcpy(m_pixels.get(), image.m_pixels.get(), size * sizeof(uint8_t));
 }
@@ -23,22 +23,22 @@ Image::~Image()
     
 }
 
-unsigned int Image::GetRows()
+uint32_t Image::GetRows()
 {
     return m_rows;
 }
 
-unsigned int Image::GetColumns()
+uint32_t Image::GetColumns()
 {
     return m_columns;
 }
 
-unsigned int Image::GetPixelValue(unsigned int pixelIndex)
+uint32_t Image::GetPixelValue(uint32_t pixelIndex)
 {
     return m_pixels[pixelIndex];
 }
 
-void Image::SetPixelValue(unsigned int pixelIndex, unsigned int value)
+void Image::SetPixelValue(uint32_t pixelIndex, uint32_t value)
 {
 	m_pixels[pixelIndex] = value;
 }

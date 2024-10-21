@@ -6,12 +6,12 @@ class ImageBrightener {
 public:
     ImageBrightener(Image& inputImage);
     void BrightenWholeImage();
-    void BrightenPixel(unsigned int x, unsigned int y);
+    void BrightenPixel(uint32_t x, uint32_t y);
     Image GetImage();
-    unsigned int GetAttenuatedPixelCount();
+    uint32_t GetAttenuatedPixelCount();
 
 
 private:
     Image m_inputImage;
-    unsigned int m_attenuatedPixelCount;
+    uint32_t m_attenuatedPixelCount;
 };
