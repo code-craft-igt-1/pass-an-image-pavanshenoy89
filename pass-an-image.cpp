@@ -1,6 +1,8 @@
 #include <iostream>
 #include "image_brightener.h"
 
+// For brightening, we add a certain grayscale (25) to every pixel.
+const uint32_t BRIGHTENING_VALUE = 25;
 
 int main() {
     uint32_t image_row_size = 512;
@@ -9,6 +11,8 @@ int main() {
 
 	std::cout << "Brightening a 512 x 512 image\n";
     ImageBrightener brightener(image);   
-    brightener.BrightenWholeImage();
+    brightener.BrightenWholeImage(BRIGHTENING_VALUE);
     std::cout << "Attenuated " << brightener.GetAttenuatedPixelCount() << " pixels\n";
+
+	return 0;
 }

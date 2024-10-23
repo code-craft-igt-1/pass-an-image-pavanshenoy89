@@ -1,37 +1,29 @@
 #include "image_brightener.h"
 
-// For brightening, we add a certain grayscale (25) to every pixel.
-const int BRIGHTENING_VALUE = 25;
 const int MAX_PIXEL_VALUE = 255;
 
-ImageBrightener::ImageBrightener(Image& inputImage) : m_inputImage(inputImage) {
+ImageBrightener::ImageBrightener(Image& inputImage) : m_inputImage(inputImage) ,m_attenuatedPixelCount(0) {
 }
 
-void ImageBrightener::BrightenWholeImage() {
-	uint32_t attenuatedPixelCount = 0;
+void ImageBrightener::BrightenWholeImage(uint32_t brightenValue) {
 	for (uint32_t x = 0; x < m_inputImage.GetRows(); x++) {
 		for (uint32_t y = 0; y < m_inputImage.GetColumns(); y++) {
-			BrightenPixel(x, y);
+			BrightenPixel(x, y , brightenValue);
 		}
 	}
 }
 
-void ImageBrightener::BrightenPixel(uint32_t x, uint32_t y) {
-	int pixelIndex = x * m_inputImage.GetColumns() + y;
-	if (m_inputImage.GetPixelValue(pixelIndex) > (MAX_PIXEL_VALUE - BRIGHTENING_VALUE)) {
-		m_inputImage.SetPixelValue(pixelIndex ,MAX_PIXEL_VALUE);
+void ImageBrightener::BrightenPixel(uint32_t x, uint32_t y , uint32_t brightenValue) {
+	if (m_inputImage.GetPixelValue(x,y) > (MAX_PIXEL_VALUE - brightenValue)) {
+		m_inputImage.SetPixelValue(x,y ,MAX_PIXEL_VALUE);
 		++m_attenuatedPixelCount;
 	}
 	else {
-		m_inputImage.SetPixelValue(pixelIndex, m_inputImage.GetPixelValue(pixelIndex) + BRIGHTENING_VALUE);
+		m_inputImage.SetPixelValue(x,y, m_inputImage.GetPixelValue(x,y) + brightenValue);
 	}
 }
 
-Image ImageBrightener::GetImage() {
-	return m_inputImage;
-}
-
-uint32_t ImageBrightener::GetAttenuatedPixelCount()
+uint32_t ImageBrightener::GetAttenuatedPixelCount() const
 {
 	return m_attenuatedPixelCount;
 }
